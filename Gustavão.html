@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Engenheiro Mecânico</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-firestore-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#17342f;
+      --muted:#66766f;
+      --mint:#e9f1ec;
+      --line:#dce7df;
+      --green:#174c3c;
+      --green-2:#2e6d58;
+      --sand:#f7f4ee;
+      --cream:#fbfaf7;
+      --danger:#9b3d35;
+    }
+    *{box-sizing:border-box}
+    body{font-family:'DM Sans',sans-serif;color:var(--ink)}
+    .serif{font-family:'Fraunces',serif}
+    .soft-shadow{box-shadow:0 18px 45px rgba(29,64,55,.08)}
+    .nav-pill.active{background:#173f34;color:#fff}
+    .step-dot.active{background:#173f34;color:#fff;border-color:#173f34}
+    .step-dot.done{background:#dcebe3;color:#173f34;border-color:#b8d0c4}
+    .step-label.active{color:#173f34;font-weight:700}
+    .option-card:has(input:checked){border-color:#2d6a55;background:#eef6f1}
+    .rating:has(input:checked){background:#1e5b49;color:#fff;border-color:#1e5b49}
+    .chart-grid{background-image:linear-gradient(#edf2ee 1px, transparent 1px);background-size:100% 32px}
+    .toast{transform:translateY(16px);opacity:0;pointer-events:none;transition:.25s ease}
+    .toast.show{transform:translateY(0);opacity:1}
+    .hidden-view{display:none}
+    .focus-ring:focus{outline:3px solid rgba(46,109,88,.25);outline-offset:2px}
+    .modal-backdrop{background:rgba(16,38,33,.44);backdrop-filter:blur(4px)}
+    @media (max-width:900px){.desktop-steps{display:none}}
+  </style>
+ </head>
+ <body data-template-id="__page-root" class="w-full min-h-screen" style="background: rgb(246, 244, 239);">
+  <div class="w-full min-h-screen">
+   <header class="w-full border-b border-[#dfe7e1] bg-white/95 sticky top-0 z-20">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between gap-4">
+     <div class="flex items-center gap-3"><img data-template-id="ifes-logo" class="canva-image w-10 h-10 object-contain rounded-xl" loading="lazy" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23173f34'/%3E%3Ctext x='50%25' y='54%25' text-anchor='middle' font-family='Arial, Helvetica, sans-serif' font-size='18' fill='white'%3EIFES%3C/text%3E%3C/svg%3E" alt="Logo do Instituto Federal do Espírito Santo">
+      <div>
+       <h1 data-template-id="brand-title" class="canva-text serif leading-tight" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 32px;">Perfil do Engenheiro Mecânico</h1>
+       <p data-template-id="brand-subtitle" class="canva-text text-xs tracking-[.14em] uppercase" style="color: rgb(109, 125, 117); font-weight: 600; font-style: normal; font-size: 11px;">Pesquisa acadêmica</p>
+      </div>
+     </div>
+     <nav class="hidden md:flex items-center p-1 rounded-full bg-[#eef3ef]" aria-label="Navegação principal">
+      <button id="nav-form" data-template-id="nav-form" class="canva-button nav-pill active px-4 py-2 rounded-full text-sm font-medium transition" style="color: rgb(0, 0, 0); font-weight: 600; font-style: normal; font-size: 16px;">Responder pesquisa</button> <button id="nav-dashboard" data-template-id="nav-dashboard" class="canva-button nav-pill px-4 py-2 rounded-full text-sm font-medium transition" style="color: rgb(0, 0, 0); font-weight: 600; font-style: normal; font-size: 16px;">Painel</button>
+     </nav><button id="mobile-toggle" class="md:hidden p-2 rounded-lg border border-[#dce7df]" aria-label="Alternar visualização"> <i data-lucide="layout-dashboard" class="w-5 h-5"></i> </button>
+    </div>
+   </header>
+   <main class="w-full">
+    <section data-template-id="hero-section" class="canva-section relative overflow-hidden" style="background: rgb(23, 63, 52);">
+     <div class="absolute inset-0">
+      <img data-template-id="hero-image" class="canva-image w-full h-full object-cover" loading="lazy" src="https://images.pexels.com/photos/239419/pexels-photo-239419.jpeg" alt="Detailed view of vintage industrial machinery gears showcasing precision engineering.">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#102f28]/95 via-[#153f34]/82 to-[#153f34]/35"></div>
+     </div>
+     <div class="relative max-w-7xl mx-auto px-5 md:px-8 py-12 md:py-16">
+      <div class="max-w-2xl">
+       <div data-template-id="hero-kicker" class="canva-tag inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/12 text-xs tracking-[.18em] uppercase mb-4" style="color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 11px;">Pesquisa nacional • engenharia mecânica</div>
+       <h2 data-template-id="hero-title" class="canva-text serif leading-[1.03] max-w-2xl" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 24px;">Como está se transformando a carreira do engenheiro mecânico?</h2>
+       <p data-template-id="hero-subtitle" class="canva-text mt-4 max-w-xl" style="color: rgb(241, 245, 242); font-weight: 400; font-style: normal; font-size: 18px;">Sua experiência ajuda a construir uma visão mais clara sobre formação, mercado e perspectivas profissionais.</p>
+       <div class="mt-7 flex flex-wrap gap-3">
+        <button id="hero-start" data-template-id="hero-primary" class="canva-button px-5 py-3 rounded-xl font-semibold flex items-center gap-2" style="background: rgb(255, 255, 255); color: rgb(23, 63, 52); font-weight: 700; font-style: normal; font-size: 16px;">Responder agora</button> <button id="hero-panel" data-template-id="hero-secondary" class="canva-button px-5 py-3 rounded-xl border border-white/25 font-medium flex items-center gap-2" style="background: rgba(255, 255, 255, 0.12); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">Ver painel</button>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="w-full bg-[#eef6f1]/50 border-b border-[#dce7df] py-4">
+     <div class="max-w-7xl mx-auto px-5 md:px-8 flex items-center gap-3"><i data-lucide="info" class="w-5 h-5 text-[#5a6b63] flex-shrink-0"></i>
+      <p data-template-id="academic-notice" class="canva-text text-sm" style="color: rgb(90, 107, 99); font-weight: 400; font-style: normal; font-size: 13px;">Pesquisa realizada como trabalho acadêmico da disciplina de Introdução a Engenharia Mecânica — IFES Campus Cachoeiro de Itapemirim</p>
+     </div>
+    </section>
+    <section id="form-view" class="max-w-7xl mx-auto px-5 md:px-8 py-8 md:py-10">
+     <div class="grid lg:grid-cols-[260px_minmax(0,1fr)] gap-6">
+      <aside data-template-id="steps-panel" class="canva-panel desktop-steps rounded-2xl border border-[#dfe8e1] p-5 soft-shadow h-fit" style="background: rgb(255, 255, 255);">
+       <div class="mb-5">
+        <p data-template-id="steps-eyebrow" class="canva-text text-xs uppercase tracking-[.18em]" style="color: rgb(108, 124, 115); font-weight: 600; font-style: normal; font-size: 11px;">Questionário</p>
+        <h2 data-template-id="steps-title" class="canva-text serif mt-1" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 24px;">6 etapas rápidas</h2>
+       </div>
+       <div class="space-y-4">
+        <button class="step-nav w-full flex items-center gap-3 text-left" data-step="0"><span class="step-dot active w-8 h-8 rounded-full border flex items-center justify-center text-sm font-semibold">1</span><span class="step-label active text-sm">Perfil</span></button> <button class="step-nav w-full flex items-center gap-3 text-left" data-step="1"><span class="step-dot w-8 h-8 rounded-full border border-[#d6e2da] flex items-center justify-center text-sm font-semibold text-[#6a7b72]">2</span><span class="step-label text-sm text-[#75867d]">Condição profissional</span></button> <button class="step-nav w-full flex items-center gap-3 text-left" data-step="2"><span class="step-dot w-8 h-8 rounded-full border border-[#d6e2da] flex items-center justify-center text-sm font-semibold text-[#6a7b72]">3</span><span class="step-label text-sm text-[#75867d]">Formação</span></button> <button class="step-nav w-full flex items-center gap-3 text-left" data-step="3"><span class="step-dot w-8 h-8 rounded-full border border-[#d6e2da] flex items-center justify-center text-sm font-semibold text-[#6a7b72]">4</span><span class="step-label text-sm text-[#75867d]">Perfil buscado</span></button> <button class="step-nav w-full flex items-center gap-3 text-left" data-step="4"><span class="step-dot w-8 h-8 rounded-full border border-[#d6e2da] flex items-center justify-center text-sm font-semibold text-[#6a7b72]">5</span><span class="step-label text-sm text-[#75867d]">Mercado</span></button> <button class="step-nav w-full flex items-center gap-3 text-left" data-step="5"><span class="step-dot w-8 h-8 rounded-full border border-[#d6e2da] flex items-center justify-center text-sm font-semibold text-[#6a7b72]">6</span><span class="step-label text-sm text-[#75867d]">Satisfação</span></button>
+       </div>
+      </aside>
+      <section data-template-id="form-card" class="canva-card rounded-[24px] border border-[#dfe8e1] soft-shadow overflow-hidden" style="background: rgb(255, 255, 255);">
+       <div class="px-5 md:px-8 pt-6 md:pt-8 pb-5 border-b border-[#edf2ee]">
+        <div class="flex items-start justify-between gap-4">
+         <div>
+          <p id="step-kicker" class="text-xs uppercase tracking-[.18em] text-[#718279]">Etapa 1 de 6</p>
+          <h2 id="step-title" class="serif text-[30px] md:text-[36px] leading-tight mt-1">Perfil</h2>
+          <p id="step-description" class="mt-2 text-[#6d7d75] max-w-2xl">Vamos começar com algumas informações básicas sobre sua trajetória.</p>
+         </div>
+         <div class="hidden sm:flex items-center gap-2 text-[#48675a] bg-[#edf5f0] rounded-full px-3 py-2 text-xs font-medium">
+          <i data-lucide="clock-3" class="w-4 h-4"></i><span>~ 5 min</span>
+         </div>
+        </div>
+        <div class="mt-6">
+         <div class="flex items-center justify-between text-xs text-[#7a8a81] mb-2">
+          <span>Progresso</span><span id="progress-label">16%</span>
+         </div>
+         <div class="h-2 rounded-full bg-[#ecf1ed] overflow-hidden">
+          <div id="progress-bar" class="h-full rounded-full bg-[#225d49] transition-all duration-300" style="width:16.66%"></div>
+         </div>
+        </div>
+       </div>
+       <form id="survey-form" class="px-5 md:px-8 py-6 md:py-8">
+        <div class="form-step" data-step-content="0">
+         <div class="grid md:grid-cols-2 gap-5">
+          <div class="md:col-span-2">
+           <label for="respondent_name" data-template-id="label-respondent-name" class="canva-text block text-sm font-semibold mb-2" style="color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">Nome completo</label> <input id="respondent_name" name="respondent_name" type="text" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring" placeholder="Ex.: João Silva">
+          </div>
+          <div>
+           <label for="birth_year" data-template-id="label-birth-year" class="canva-text block text-sm font-semibold mb-2" style="color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">Ano de nascimento</label> <input id="birth_year" name="birth_year" type="number" min="1940" max="2010" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring" placeholder="Ex.: 1992">
+          </div>
+          <div>
+           <label for="gender" data-template-id="label-gender" class="canva-text block text-sm font-semibold mb-2" style="color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">Sexo</label> <select id="gender" name="gender" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring"> <option value="">Selecione</option> <option>Masculino</option> <option>Feminino</option> <option>Outro</option> </select>
+          </div>
+          <div>
+           <label for="enrollment_year" data-template-id="label-enrollment-year" class="canva-text block text-sm font-semibold mb-2" style="color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">Ano de ingresso na faculdade</label> <input id="enrollment_year" name="enrollment_year" type="number" min="1960" max="2025" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring" placeholder="Ex.: 2013">
+          </div>
+          <div>
+           <label for="graduation_year" data-template-id="label-graduation-year" class="canva-text block text-sm font-semibold mb-2" style="color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">Ano de formatura</label> <input id="graduation_year" name="graduation_year" type="number" min="1960" max="2030" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring" placeholder="Ex.: 2017">
+          </div>
+          <div class="md:col-span-2">
+           <label for="university" data-template-id="label-university" class="canva-text block text-sm font-semibold mb-2" style="color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">Universidade</label> <input id="university" name="university" type="text" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring" placeholder="Ex.: UFES">
+          </div>
+         </div>
+        </div>
+        <div class="form-step hidden" data-step-content="1">
+         <div class="space-y-6">
+          <div>
+           <p class="text-sm font-semibold mb-3">Qual sua situação profissional?</p>
+           <div class="grid md:grid-cols-2 gap-3" id="professional-status-options"></div>
+          </div>
+          <div>
+           <p class="text-sm font-semibold mb-3">Faixa salarial mensal</p>
+           <div class="grid md:grid-cols-2 gap-3" id="salary-options"></div>
+          </div>
+         </div>
+        </div>
+        <div class="form-step hidden" data-step-content="2">
+         <div id="formation-questions" class="space-y-5"></div>
+         <div class="mt-8 border-t border-[#edf2ee] pt-8">
+          <h3 class="text-lg font-semibold mb-5">Pós-graduação</h3>
+          <div class="space-y-6" id="postgrad-blocks"></div>
+         </div>
+        </div>
+        <div class="form-step hidden" data-step-content="3">
+         <p class="text-sm font-semibold mb-3">Quais profissionais as empresas buscam?</p>
+         <p class="text-sm text-[#72837b] mb-5">Selecione todas as alternativas que considerar relevantes.</p>
+         <div class="grid md:grid-cols-2 gap-3" id="company-profile-options"></div>
+        </div>
+        <div class="form-step hidden" data-step-content="4">
+         <div id="market-questions" class="space-y-5"></div>
+        </div>
+        <div class="form-step hidden" data-step-content="5">
+         <div id="satisfaction-questions" class="space-y-5"></div>
+        </div>
+        <div class="mt-8 flex items-center justify-between gap-3 border-t border-[#edf2ee] pt-5">
+         <button type="button" id="prev-btn" data-template-id="prev-button" class="canva-button px-4 py-3 rounded-xl border border-[#d8e4dc] font-medium flex items-center gap-2 disabled:opacity-40" style="color: rgb(54, 88, 76); font-weight: 600; font-style: normal; font-size: 16px;">Voltar</button> <button type="button" id="next-btn" data-template-id="next-button" class="canva-button px-5 py-3 rounded-xl font-semibold flex items-center gap-2" style="background: rgb(23, 63, 52); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Avançar</button> <button type="submit" id="submit-btn" data-template-id="submit-button" class="canva-button hidden px-5 py-3 rounded-xl font-semibold items-center gap-2" style="background: rgb(23, 63, 52); color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 16px;">Enviar respostas</button>
+        </div>
+        <p id="form-message" class="hidden mt-4 text-sm rounded-xl px-4 py-3"></p>
+       </form>
+      </section>
+     </div>
+    </section>
+    <div id="password-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center px-4">
+     <div class="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl">
+      <div class="w-12 h-12 rounded-xl bg-[#eef6f1] text-[#173f34] flex items-center justify-center mb-4"><i data-lucide="lock" class="w-6 h-6"></i>
+      </div>
+      <h2 class="serif text-[28px] text-[#17342f] mb-2">Acesso ao painel</h2>
+      <p class="text-sm text-[#66766f] leading-6 mb-6">Digite a senha para visualizar os dados.</p><input id="password-input" type="password" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring mb-4" placeholder="Senha">
+      <div id="password-error" class="hidden text-sm text-[#9b3d35] mb-4 bg-[#fff1f0] rounded-lg px-3 py-2"></div>
+      <div class="flex gap-3">
+       <button id="cancel-password" class="flex-1 px-4 py-3 rounded-xl border border-[#d8e4dc] text-[#36584c] font-semibold">Cancelar</button> <button id="submit-password" class="flex-1 px-4 py-3 rounded-xl bg-[#173f34] text-white font-semibold flex items-center justify-center gap-2"><span>Acessar</span></button>
+      </div>
+     </div>
+    </div>
+    <section id="dashboard-view" class="hidden-view max-w-7xl mx-auto px-5 md:px-8 py-8 md:py-10">
+     <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5 mb-6">
+      <div>
+       <p data-template-id="dashboard-eyebrow" class="canva-text text-xs uppercase tracking-[.18em]" style="color: rgb(112, 128, 119); font-weight: 600; font-style: normal; font-size: 11px;">Painel administrativo</p>
+       <h2 data-template-id="dashboard-title" class="canva-text serif leading-tight mt-1" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 24px;">Visão geral da pesquisa</h2>
+       <p data-template-id="dashboard-subtitle" class="canva-text mt-2" style="color: rgb(107, 125, 116); font-weight: 400; font-style: normal; font-size: 16px;">Indicadores consolidados para análise acadêmica e tomada de decisão.</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+       <button id="csv-btn" data-template-id="csv-button" class="canva-button px-3 py-2 rounded-lg border border-[#d8e4dc] text-sm flex items-center gap-2" style="background: rgb(255, 255, 255); color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">CSV</button> <button id="pdf-btn" data-template-id="pdf-button" class="canva-button px-3 py-2 rounded-lg border border-[#d8e4dc] text-sm flex items-center gap-2" style="background: rgb(255, 255, 255); color: rgb(23, 52, 47); font-weight: 600; font-style: normal; font-size: 16px;">PDF</button> <button id="ppt-btn" data-template-id="ppt-button" class="canva-button px-3 py-2 rounded-lg text-sm flex items-center gap-2" style="background: rgb(23, 63, 52); color: rgb(255, 255, 255); font-weight: 600; font-style: normal; font-size: 16px;">PowerPoint</button> <button id="delete-all-btn" data-template-id="delete-all-button" class="canva-button px-3 py-2 rounded-lg border border-[#e6c6c1] text-sm flex items-center gap-2" style="background: rgb(255, 248, 247); color: rgb(155, 61, 53); font-weight: 600; font-style: normal; font-size: 16px;">Apagar dados</button>
+      </div>
+     </div>
+     <div data-template-id="filters-panel" class="canva-panel border border-[#dfe8e1] rounded-2xl p-4 mb-5 flex flex-wrap gap-3 items-center" style="background: rgb(255, 255, 255);">
+      <div class="flex items-center gap-2 text-[#5f7168] text-sm"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i><span data-template-id="filters-title" class="canva-text font-semibold" style="color: rgb(95, 113, 104); font-weight: 700; font-style: normal; font-size: 16px;">Filtros</span>
+      </div><select id="filter-gender" class="rounded-lg border border-[#dbe5de] px-3 py-2 text-sm bg-[#fbfcfa]"><option value="">Todos os sexos</option><option>Masculino</option><option>Feminino</option><option>Outro</option></select> <select id="filter-salary" class="rounded-lg border border-[#dbe5de] px-3 py-2 text-sm bg-[#fbfcfa]"><option value="">Todas as faixas salariais</option><option>Até R$ 4.000</option><option>R$ 4.000 a R$ 5.200</option><option>R$ 5.200 a R$ 6.400</option><option>R$ 6.400 a R$ 8.000</option><option>R$ 8.000 a R$ 9.600</option><option>Acima de R$ 9.600</option></select> <input id="filter-university" class="rounded-lg border border-[#dbe5de] px-3 py-2 text-sm bg-[#fbfcfa]" placeholder="Filtrar universidade">
+     </div>
+     <div class="grid sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-5">
+      <article data-template-id="kpi-card-1" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start"><span class="text-xs uppercase tracking-[.12em] text-[#728279]">Entrevistados</span><i data-lucide="users" class="w-4 h-4 text-[#4d725f]"></i>
+       </div>
+       <div id="kpi-total" class="serif text-[34px] mt-3">
+        0
+       </div>
+       <p class="text-xs text-[#7d8d84] mt-1">respostas registradas</p>
+      </article>
+      <article data-template-id="kpi-card-2" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start"><span class="text-xs uppercase tracking-[.12em] text-[#728279]">Idade média</span><i data-lucide="calendar-days" class="w-4 h-4 text-[#4d725f]"></i>
+       </div>
+       <div id="kpi-age" class="serif text-[34px] mt-3">
+        —
+       </div>
+       <p class="text-xs text-[#7d8d84] mt-1">anos</p>
+      </article>
+      <article data-template-id="kpi-card-3" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start"><span class="text-xs uppercase tracking-[.12em] text-[#728279]">Tempo de formação</span><i data-lucide="graduation-cap" class="w-4 h-4 text-[#4d725f]"></i>
+       </div>
+       <div id="kpi-grad" class="serif text-[34px] mt-3">
+        —
+       </div>
+       <p class="text-xs text-[#7d8d84] mt-1">anos em média</p>
+      </article>
+      <article data-template-id="kpi-card-4" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start"><span class="text-xs uppercase tracking-[.12em] text-[#728279]">Satisfação</span><i data-lucide="smile" class="w-4 h-4 text-[#4d725f]"></i>
+       </div>
+       <div id="kpi-satisfaction" class="serif text-[34px] mt-3">
+        —
+       </div>
+       <p class="text-xs text-[#7d8d84] mt-1">de 5 pontos</p>
+      </article>
+      <article data-template-id="kpi-card-5" class="canva-card rounded-2xl p-5 text-white" style="background: rgb(23, 63, 52);">
+       <div class="flex justify-between items-start"><span class="text-xs uppercase tracking-[.12em] text-white/70">Empregabilidade</span><i data-lucide="trending-up" class="w-4 h-4 text-white/80"></i>
+       </div>
+       <div id="kpi-employability" class="serif text-[34px] mt-3">
+        —
+       </div>
+       <p class="text-xs text-white/65 mt-1">de 5 pontos</p>
+      </article>
+     </div>
+     <div class="grid xl:grid-cols-3 gap-5">
+      <article data-template-id="chart-card-gender" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start mb-5">
+        <div>
+         <h3 data-template-id="chart-gender-title" class="canva-text font-semibold" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 19px;">Sexo</h3>
+         <p class="text-xs text-[#7d8d84] mt-1">Distribuição da amostra</p>
+        </div><i data-lucide="more-horizontal" class="w-4 h-4 text-[#8b9992]"></i>
+       </div>
+       <div class="flex items-center justify-center gap-6 py-2">
+        <div id="gender-donut" class="w-36 h-36 rounded-full bg-[#edf2ee]"></div>
+        <div id="gender-legend" class="space-y-2 text-sm"></div>
+       </div>
+      </article>
+      <article data-template-id="chart-card-status" class="canva-card rounded-2xl border border-[#dfe8e1] p-5 xl:col-span-2" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start mb-5">
+        <div>
+         <h3 data-template-id="chart-status-title" class="canva-text font-semibold" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 19px;">Situação profissional</h3>
+         <p class="text-xs text-[#7d8d84] mt-1">Situação profissional atual</p>
+        </div><i data-lucide="more-horizontal" class="w-4 h-4 text-[#8b9992]"></i>
+       </div>
+       <div id="status-bars" class="space-y-4"></div>
+      </article>
+      <article data-template-id="chart-card-salary" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start mb-5">
+        <div>
+         <h3 data-template-id="chart-salary-title" class="canva-text font-semibold" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 19px;">Faixa salarial</h3>
+         <p class="text-xs text-[#7d8d84] mt-1">Renda mensal declarada</p>
+        </div><i data-lucide="more-horizontal" class="w-4 h-4 text-[#8b9992]"></i>
+       </div>
+       <div id="salary-bars" class="h-56 flex items-end gap-3 chart-grid px-2"></div>
+      </article>
+      <article data-template-id="chart-card-radar" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start mb-4">
+        <div>
+         <h3 data-template-id="chart-radar-title" class="canva-text font-semibold" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 19px;">Qualidade da formação</h3>
+         <p class="text-xs text-[#7d8d84] mt-1">Percepção sobre a graduação</p>
+        </div><i data-lucide="more-horizontal" class="w-4 h-4 text-[#8b9992]"></i>
+       </div>
+       <div class="flex justify-center text-center text-sm text-[#6f8177] py-14">
+        Leitura consolidada das respostas de formação.
+       </div>
+      </article>
+      <article data-template-id="chart-card-line" class="canva-card rounded-2xl border border-[#dfe8e1] p-5" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start mb-4">
+        <div>
+         <h3 data-template-id="chart-line-title" class="canva-text font-semibold" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 19px;">Tempo de formação x salário</h3>
+         <p class="text-xs text-[#7d8d84] mt-1">Progressão observada</p>
+        </div><i data-lucide="more-horizontal" class="w-4 h-4 text-[#8b9992]"></i>
+       </div>
+       <div class="flex justify-center text-center text-sm text-[#6f8177] py-14">
+        Indicador interpretativo para cruzamento entre trajetória e renda.
+       </div>
+      </article>
+      <article data-template-id="chart-card-heatmap" class="canva-card rounded-2xl border border-[#dfe8e1] p-5 xl:col-span-2" style="background: rgb(255, 255, 255);">
+       <div class="flex justify-between items-start mb-4">
+        <div>
+         <h3 data-template-id="chart-heatmap-title" class="canva-text font-semibold" style="color: rgb(23, 52, 47); font-weight: 700; font-style: normal; font-size: 19px;">Correlação satisfação x renda</h3>
+         <p class="text-xs text-[#7d8d84] mt-1">Satisfação profissional por faixa salarial</p>
+        </div><i data-lucide="more-horizontal" class="w-4 h-4 text-[#8b9992]"></i>
+       </div>
+       <div id="heatmap-grid" class="grid grid-cols-6 gap-2"></div>
+       <div class="flex justify-between text-[10px] text-[#73837b] mt-3"><span>Menor satisfação</span><span>Maior satisfação</span>
+       </div>
+      </article>
+      <article data-template-id="report-card" class="canva-card rounded-2xl p-6 text-white xl:col-span-1" style="background: rgb(23, 63, 52);">
+       <div class="flex items-start justify-between mb-5">
+        <div>
+         <p data-template-id="report-eyebrow" class="canva-text text-xs uppercase tracking-[.16em]" style="color: rgb(215, 228, 220); font-weight: 600; font-style: normal; font-size: 11px;">Síntese automática</p>
+         <h3 data-template-id="report-title" class="canva-text serif mt-1" style="color: rgb(255, 255, 255); font-weight: 700; font-style: normal; font-size: 19px;">Conclusões</h3>
+        </div><i data-lucide="sparkles" class="w-5 h-5 text-[#d8eadf]"></i>
+       </div>
+       <div id="report-text" class="space-y-3 text-sm leading-6 text-white/82">
+        <p>Aguardando respostas para consolidar uma leitura mais precisa.</p>
+       </div><button id="report-btn" data-template-id="report-button" class="canva-button mt-5 w-full rounded-xl py-3 font-semibold flex items-center justify-center gap-2" style="background: rgb(255, 255, 255); color: rgb(23, 63, 52); font-weight: 700; font-style: normal; font-size: 16px;">Gerar relatório</button>
+      </article>
+     </div>
+    </section>
+   </main>
+   <div id="toast" class="toast fixed bottom-5 right-5 z-50 rounded-xl bg-[#173f34] text-white px-4 py-3 text-sm shadow-lg"></div>
+   <div id="delete-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center px-4">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl">
+     <div class="w-12 h-12 rounded-xl bg-[#fff1f0] text-[#9b3d35] flex items-center justify-center mb-4"><i data-lucide="trash-2" class="w-6 h-6"></i>
+     </div>
+     <h2 class="serif text-[28px] text-[#17342f] mb-2">Apagar todos os dados?</h2>
+     <p class="text-sm text-[#66766f] leading-6">Essa ação remove permanentemente todas as respostas salvas na planilha deste painel. Ela não pode ser desfeita.</p>
+     <div class="flex gap-3 mt-6">
+      <button id="cancel-delete" class="flex-1 px-4 py-3 rounded-xl border border-[#d8e4dc] text-[#36584c] font-semibold">Cancelar</button> <button id="confirm-delete" class="flex-1 px-4 py-3 rounded-xl bg-[#9b3d35] text-white font-semibold flex items-center justify-center gap-2"><span>Apagar tudo</span></button>
+     </div>
+    </div>
+   </div>
+   <div id="thanks-modal" class="hidden fixed inset-0 z-50 modal-backdrop flex items-center justify-center px-4">
+    <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl text-center">
+     <div class="w-16 h-16 rounded-full bg-[#edf7f1] text-[#1e5b49] flex items-center justify-center mx-auto mb-5"><i data-lucide="check-circle-2" class="w-8 h-8"></i>
+     </div>
+     <h2 class="serif text-[28px] text-[#17342f] mb-2">Obrigado!</h2>
+     <p class="text-sm text-[#66766f] leading-6 mb-6">Sua resposta foi registrada com sucesso. Sua participação é fundamental para compreender melhor o perfil e as perspectivas do engenheiro mecânico.</p><button id="close-thanks" class="w-full px-4 py-3 rounded-xl bg-[#173f34] text-white font-semibold">Fechar</button>
+    </div>
+   </div>
+  </div>
+  <script>
+    const firebaseConfig = {
+      apiKey: 'AIzaSyC-65hhXzUY5ITPTpIVUayVZX08f0oZwBs',
+      authDomain: 'design-de-ia.firebaseapp.com',
+      projectId: 'design-de-ia',
+      storageBucket: 'design-de-ia.firebasestorage.app',
+      messagingSenderId: '139639227326',
+      appId: '1:139639227326:web:afb3a8e3df0c330fd12fef',
+      measurementId: 'G-XDLGCWSZQ9'
+    };
+
+    const FIREBASE_COLLECTION = 'survey_responses';
+    const STORAGE_KEY = 'gustavao_respostas_v1';
+
+    let db = null;
+    try {
+      if (window.firebase && firebase.apps.length === 0) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      db = firebase.firestore();
+    } catch (error) {
+      console.warn('Firebase init unavailable, using local fallback.', error);
+      db = null;
+    }
+
+    window.dataSdk = window.dataSdk || (() => {
+      let handler = null;
+      const readLocal = () => {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        } catch {
+          return [];
+        }
+      };
+      const writeLocal = (records) => localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      const emit = (records) => handler && handler.onDataChanged(records);
+      return {
+        async init(nextHandler) {
+          handler = nextHandler;
+          if (db) {
+            try {
+              const snapshot = await db.collection(FIREBASE_COLLECTION).orderBy('created_at', 'desc').get();
+              const records = snapshot.docs.map((doc) => ({ ...doc.data(), __backendId: doc.id }));
+              writeLocal(records);
+              emit(records);
+              return { isOk: true, records };
+            } catch (error) {
+              console.warn('Firebase read failed, using local fallback.', error);
+            }
+          }
+          const records = readLocal();
+          emit(records);
+          return { isOk: true, records };
+        },
+        async create(payload) {
+          if (db) {
+            try {
+              const ref = await db.collection(FIREBASE_COLLECTION).add(payload);
+              const item = { ...payload, __backendId: ref.id };
+              const records = [item, ...readLocal().filter((entry) => entry.__backendId !== ref.id)];
+              writeLocal(records);
+              emit(records);
+              return { isOk: true, data: item };
+            } catch (error) {
+              console.warn('Firebase create failed, using local fallback.', error);
+            }
+          }
+          const records = [...readLocal(), { ...payload, __backendId: crypto.randomUUID?.() || String(Date.now()) }];
+          writeLocal(records);
+          emit(records);
+          return { isOk: true, data: records[records.length - 1] };
+        },
+        async delete(record) {
+          if (db && record && record.__backendId) {
+            try {
+              await db.collection(FIREBASE_COLLECTION).doc(record.__backendId).delete();
+              const records = readLocal().filter((entry) => entry.__backendId !== record.__backendId);
+              writeLocal(records);
+              emit(records);
+              return { isOk: true, data: records };
+            } catch (error) {
+              console.warn('Firebase delete failed, using local fallback.', error);
+            }
+          }
+          const records = readLocal().filter((entry) => entry.__backendId !== record.__backendId);
+          writeLocal(records);
+          emit(records);
+          return { isOk: true, data: records };
+        }
+      };
+    })();
+
+    const dataHandler = {
+      onDataChanged(data) {
+        allRecords = Array.isArray(data) ? data : [];
+        filteredRecords = [...allRecords];
+        applyFilters();
+      }
+    };
+
+    let allRecords = [];
+    let filteredRecords = [];
+
+    lucide.createIcons();
+
+    const professionalStatuses = ['Autônomo ou consultor','Funcionário de empresa privada','Servidor público','Funcionário de empresa de economia mista','Proprietário ou sócio de empresa','Professor ou carreira acadêmica','Aposentado','Não atua na área de engenharia','Desempregado'];
+    const salaryRanges = ['Até R$ 4.000','R$ 4.000 a R$ 5.200','R$ 5.200 a R$ 6.400','R$ 6.400 a R$ 8.000','R$ 8.000 a R$ 9.600','Acima de R$ 9.600'];
+    const companyProfiles = ['Profissionais eminentemente teóricos','Profissionais predominantemente práticos','Recém-formados','Profissionais experientes','Profissionais com conhecimento administrativo','Profissionais capazes de exercer múltiplas funções'];
+    const formationQuestions = ['O curso de engenharia prepara bons profissionais?','A formação foi sólida?','Fui preparado para conseguir um bom emprego?','Fui preparado para montar meu próprio negócio?','Fui capacitado para identificar oportunidades de mercado?','Precisei fazer outros cursos para me adequar ao mercado?','A imagem da minha faculdade ajuda profissionalmente?'];
+    const marketQuestions = ['Especialização em engenharia é necessária?','Especialização em administração ou gestão é necessária?','A formação em engenharia garante emprego?','A formação em engenharia facilita trabalhar em outras áreas?','Existe alta demanda por engenheiros?','As universidades formam engenheiros em excesso?'];
+    const satisfactionQuestions = ['A profissão é valorizada?','Estou satisfeito com minha profissão?','Estou satisfeito com meu salário?','Estou satisfeito com minha função?','Minha inserção no mercado foi fácil?','Existem boas oportunidades de crescimento profissional?'];
+
+    function optionHtml(name, value, type='radio'){
+      return `<label class="option-card border border-[#dbe6de] rounded-xl p-4 cursor-pointer transition"><input type="${type}" name="${name}" value="${value}" class="mr-2">${value}</label>`;
+    }
+    document.getElementById('professional-status-options').innerHTML = professionalStatuses.map(v=>optionHtml('professional_status',v)).join('');
+    document.getElementById('salary-options').innerHTML = salaryRanges.map(v=>optionHtml('salary_range',v)).join('');
+    document.getElementById('company-profile-options').innerHTML = companyProfiles.map(v=>optionHtml('company_profile',v,'checkbox')).join('');
+
+    function renderLikert(containerId, prefix, questions){
+      const container = document.getElementById(containerId);
+      questions.forEach((q, idx)=>{
+        const wrap = document.createElement('div');
+        wrap.className = 'rounded-2xl border border-[#e1e9e3] p-4';
+        wrap.innerHTML = `<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4"><p class="text-sm font-medium max-w-xl">${q}</p><div class="flex gap-2">${[1,2,3,4,5].map(n=>`<label class="rating w-9 h-9 rounded-lg border border-[#d8e4dc] flex items-center justify-center cursor-pointer text-sm"><input class="sr-only" type="radio" name="${prefix}_q${idx+1}" value="${n}">${n}</label>`).join('')}</div></div>`;
+        container.appendChild(wrap);
+      });
+    }
+    renderLikert('formation-questions','formation',formationQuestions);
+    renderLikert('market-questions','market',marketQuestions);
+    renderLikert('satisfaction-questions','satisfaction',satisfactionQuestions);
+
+    function postGradBlock(key, question, areaPlaceholder, instPlaceholder){
+      return `<div>
+        <p class="text-sm font-semibold mb-3">${question}</p>
+        <div class="grid md:grid-cols-2 gap-3">${optionHtml('has_'+key,'Sim')}${optionHtml('has_'+key,'Não')}</div>
+        <div id="${key}-details" class="hidden mt-4 space-y-4 p-4 bg-[#f9fdfb] rounded-xl border border-[#e9f1ec]">
+          <div><label for="${key}_area" class="block text-sm font-semibold mb-2">Qual área?</label><input id="${key}_area" name="${key}_area" type="text" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring" placeholder="${areaPlaceholder}"></div>
+          <div><label for="${key}_institution" class="block text-sm font-semibold mb-2">Em qual instituição?</label><input id="${key}_institution" name="${key}_institution" type="text" class="w-full rounded-xl border border-[#d9e4dc] px-4 py-3 bg-[#fbfcfa] focus-ring" placeholder="${instPlaceholder}"></div>
+          <div><p class="text-sm font-semibold mb-3">Isso ajudou você a conseguir um melhor emprego?</p><div class="grid md:grid-cols-3 gap-3">${optionHtml(key+'_helped_job','Sim, muito')}${optionHtml(key+'_helped_job','Sim, um pouco')}${optionHtml(key+'_helped_job','Não ajudou')}</div></div>
+        </div>
+      </div>`;
+    }
+    document.getElementById('postgrad-blocks').innerHTML = postGradBlock('specialization','Você realizou especialização lato sensu?','Ex.: Gestão de Projetos','Ex.: UFES') + postGradBlock('masters','Você realizou mestrado?','Ex.: Engenharia Mecânica','Ex.: USP') + postGradBlock('phd','Você realizou doutorado?','Ex.: Engenharia Mecânica','Ex.: UNICAMP');
+
+    ['specialization','masters','phd'].forEach(key=>{
+      document.querySelectorAll(`input[name="has_${key}"]`).forEach(radio=>{
+        radio.addEventListener('change',()=>document.getElementById(`${key}-details`).classList.toggle('hidden', radio.value !== 'Sim'));
+      });
+    });
+
+    const stepTitles = [
+      ['Etapa 1 de 6','Perfil','Vamos começar com algumas informações básicas sobre sua trajetória.'],
+      ['Etapa 2 de 6','Condição profissional','Conte um pouco sobre sua atuação atual no mercado.'],
+      ['Etapa 3 de 6','Formação','Avalie sua formação e o impacto dela na sua carreira.'],
+      ['Etapa 4 de 6','Perfil buscado','Na sua percepção, o que as empresas procuram hoje?'],
+      ['Etapa 5 de 6','Mercado de trabalho','Compartilhe sua visão sobre o cenário atual da profissão.'],
+      ['Etapa 6 de 6','Satisfação profissional','Para finalizar, conte como você percebe sua trajetória hoje.']
+    ];
+    let currentStep = 0;
+    const stepKicker=document.getElementById('step-kicker');
+    const stepTitle=document.getElementById('step-title');
+    const stepDescription=document.getElementById('step-description');
+
+    function refreshStep(){
+      document.querySelectorAll('.form-step').forEach((el,i)=>el.classList.toggle('hidden',i!==currentStep));
+      const [k,t,d]=stepTitles[currentStep];
+      stepKicker.textContent=k; stepTitle.textContent=t; stepDescription.textContent=d;
+      const pct=Math.round(((currentStep+1)/6)*100);
+      document.getElementById('progress-bar').style.width=pct+'%';
+      document.getElementById('progress-label').textContent=pct+'%';
+      document.getElementById('prev-btn').disabled=currentStep===0;
+      document.getElementById('next-btn').classList.toggle('hidden',currentStep===5);
+      document.getElementById('submit-btn').classList.toggle('hidden',currentStep!==5);
+      if(currentStep===5){document.getElementById('submit-btn').classList.add('flex');}else{document.getElementById('submit-btn').classList.remove('flex');}
+      document.querySelectorAll('.step-nav').forEach((btn,i)=>{
+        const dot=btn.querySelector('.step-dot'), label=btn.querySelector('.step-label');
+        dot.classList.remove('active','done'); label.classList.remove('active');
+        if(i<currentStep) dot.classList.add('done');
+        if(i===currentStep){dot.classList.add('active'); label.classList.add('active')}
+      });
+    }
+    function validateStep(){
+      if(currentStep!==0) return true;
+      const required=['respondent_name','birth_year','gender','enrollment_year','graduation_year','university'];
+      let firstInvalid=null;
+      required.forEach(id=>{
+        const el=document.getElementById(id);
+        el.classList.remove('border-[#b65d55]');
+        if(!el.value && !firstInvalid) firstInvalid=el;
+        if(!el.value) el.classList.add('border-[#b65d55]');
+      });
+      if(firstInvalid){showFormMessage('Preencha os campos principais para continuar.','error');firstInvalid.focus();return false;}
+      return true;
+    }
+    document.getElementById('next-btn').addEventListener('click',()=>{if(validateStep()&&currentStep<5){currentStep++;refreshStep();}});
+    document.getElementById('prev-btn').addEventListener('click',()=>{if(currentStep>0){currentStep--;refreshStep();}});
+    document.querySelectorAll('.step-nav').forEach(btn=>btn.addEventListener('click',()=>{currentStep=Number(btn.dataset.step);refreshStep();}));
+
+    function showView(view){
+      if (view === 'dashboard' && !isDashboardUnlocked) {
+        showPasswordModal();
+        return;
+      }
+      document.getElementById('form-view').classList.toggle('hidden-view',view!=='form');
+      document.getElementById('dashboard-view').classList.toggle('hidden-view',view!=='dashboard');
+      document.getElementById('nav-form').classList.toggle('active',view==='form');
+      document.getElementById('nav-dashboard').classList.toggle('active',view==='dashboard');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    document.getElementById('nav-form').addEventListener('click',()=>showView('form'));
+    document.getElementById('nav-dashboard').addEventListener('click',()=>showView('dashboard'));
+    document.getElementById('hero-start').addEventListener('click',()=>showView('form'));
+    document.getElementById('hero-panel').addEventListener('click',()=>showView('dashboard'));
+    document.getElementById('mobile-toggle').addEventListener('click',()=>showView(document.getElementById('dashboard-view').classList.contains('hidden-view')?'dashboard':'form'));
+
+    let isDashboardUnlocked = false;
+    const correctPassword = 'admin123';
+
+    function showPasswordModal() {
+      isDashboardUnlocked = false;
+      document.getElementById('password-modal').classList.remove('hidden');
+      document.getElementById('password-modal').classList.add('flex');
+      document.getElementById('password-input').value = '';
+      document.getElementById('password-error').classList.add('hidden');
+      document.getElementById('password-input').focus();
+    }
+
+    function hidePasswordModal() {
+      document.getElementById('password-modal').classList.add('hidden');
+      document.getElementById('password-modal').classList.remove('flex');
+      document.getElementById('password-input').value = '';
+      document.getElementById('password-error').classList.add('hidden');
+    }
+
+    function verifyPassword() {
+      const input = document.getElementById('password-input').value;
+      const errorEl = document.getElementById('password-error');
+      if (input === correctPassword) {
+        isDashboardUnlocked = true;
+        hidePasswordModal();
+        document.getElementById('form-view').classList.toggle('hidden-view', true);
+        document.getElementById('dashboard-view').classList.toggle('hidden-view', false);
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else {
+        errorEl.textContent = 'Senha incorreta. Tente novamente.';
+        errorEl.classList.remove('hidden');
+        document.getElementById('password-input').focus();
+      }
+    }
+
+    document.getElementById('submit-password').addEventListener('click', verifyPassword);
+    document.getElementById('password-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') verifyPassword();
+    });
+    document.getElementById('cancel-password').addEventListener('click', () => {
+      hidePasswordModal();
+      if (!isDashboardUnlocked) {
+        document.getElementById('nav-form').classList.add('active');
+        document.getElementById('nav-dashboard').classList.remove('active');
+      }
+    });
+
+    async function initData(){
+      try {
+        const sdk = window.dataSdk;
+        if (!sdk || typeof sdk.init !== 'function') {
+          dataHandler.onDataChanged([]);
+          return;
+        }
+        const res = await sdk.init(dataHandler);
+        if (!res || !res.isOk) {
+          showToast('Não foi possível conectar à planilha agora.');
+        }
+      } catch (error) {
+        console.error('initData error', error);
+        dataHandler.onDataChanged([]);
+      }
+    }
+    function avg(arr){return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0}
+    function applyFilters(){
+      const g=document.getElementById('filter-gender').value;
+      const s=document.getElementById('filter-salary').value;
+      const u=document.getElementById('filter-university').value.trim().toLowerCase();
+      filteredRecords=allRecords.filter(r=>(!g||r.gender===g)&&(!s||r.salary_range===s)&&(!u||String(r.university||'').toLowerCase().includes(u)));
+      updateDashboard(filteredRecords);
+    }
+    ['filter-gender','filter-salary','filter-university'].forEach(id=>document.getElementById(id).addEventListener('input',applyFilters));
+
+    function updateDashboard(records){
+      const now=new Date().getFullYear();
+      const ages=records.map(r=>now-Number(r.birth_year)).filter(v=>v>0&&v<100);
+      const grads=records.map(r=>Number(r.graduation_year)-Number(r.enrollment_year)).filter(v=>v>0&&v<20);
+      const sats=records.map(r=>avg([1,2,3,4,5,6].map(i=>Number(r['satisfaction_q'+i])).filter(Boolean))).filter(Boolean);
+      const markets=records.map(r=>avg([1,2,3,4,5,6].map(i=>Number(r['market_q'+i])).filter(Boolean))).filter(Boolean);
+      document.getElementById('kpi-total').textContent=records.length;
+      document.getElementById('kpi-age').textContent=ages.length?Math.round(avg(ages)):'—';
+      document.getElementById('kpi-grad').textContent=grads.length?avg(grads).toFixed(1).replace('.',','):'—';
+      document.getElementById('kpi-satisfaction').textContent=sats.length?avg(sats).toFixed(1).replace('.',','):'—';
+      document.getElementById('kpi-employability').textContent=markets.length?avg(markets).toFixed(1).replace('.',','):'—';
+      renderGender(records);renderStatus(records);renderSalary(records);renderHeatmap();updateReport(records);
+    }
+    function countBy(records,key){return records.reduce((acc,r)=>{const v=r[key]||'Não informado';acc[v]=(acc[v]||0)+1;return acc;},{})}
+    function renderGender(records){
+      const counts=countBy(records,'gender'), total=records.length||1;
+      const male=(counts['Masculino']||0)/total*100, female=(counts['Feminino']||0)/total*100;
+      document.getElementById('gender-donut').style.background=`conic-gradient(#1e5b49 0 ${male}%, #79a58f ${male}% ${male+female}%, #d4e2da ${male+female}% 100%)`;
+      document.getElementById('gender-legend').innerHTML=[['Masculino','#1e5b49'],['Feminino','#79a58f'],['Outro','#d4e2da']].map(([label,color])=>`<div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full" style="background:${color}"></span>${label} ${Math.round(((counts[label]||0)/total)*100)}%</div>`).join('');
+    }
+    function renderStatus(records){
+      const entries=Object.entries(countBy(records,'professional_status')).sort((a,b)=>b[1]-a[1]).slice(0,5);
+      const max=Math.max(...entries.map(e=>e[1]),1);
+      document.getElementById('status-bars').innerHTML=entries.length?entries.map(([label,val],i)=>`<div><div class="flex justify-between text-xs mb-1"><span>${label}</span><span>${Math.round((val/records.length)*100)}%</span></div><div class="h-3 rounded-full bg-[#edf2ee]"><div class="h-3 rounded-full" style="width:${(val/max)*100}%;background:${['#1e5b49','#427d68','#6fa089','#9dbdab','#c3d8cc'][i]}"></div></div></div>`).join(''):'<p class="text-sm text-[#7d8d84]">Sem dados para exibir.</p>';
+    }
+    function renderSalary(records){
+      const counts=countBy(records,'salary_range'), max=Math.max(...salaryRanges.map(l=>counts[l]||0),1);
+      document.getElementById('salary-bars').innerHTML=salaryRanges.map((label,i)=>`<div class="flex-1 flex flex-col justify-end items-center gap-2"><div class="w-full rounded-t-md" style="height:${((counts[label]||0)/max)*100}%;min-height:4px;background:${['#bfd5c7','#9dbca9','#6f9e87','#447762','#255a48','#173f34'][i]}"></div><span class="text-[10px] text-[#76867d]">${['4k','5,2k','6,4k','8k','9,6k','+'][i]}</span></div>`).join('');
+    }
+    function renderHeatmap(){document.getElementById('heatmap-grid').innerHTML=Array.from({length:24},(_,i)=>`<div class="h-10 rounded" style="background:${['#f8faf8','#edf3ef','#d3e4da','#aac8b6','#68987f','#1e5b49'][i%6]}"></div>`).join('')}
+    function updateReport(records){
+      const box=document.getElementById('report-text');
+      if(!records.length){box.innerHTML='<p>Aguardando respostas para consolidar uma leitura mais precisa.</p>';return;}
+      const sat=avg(records.map(r=>avg([1,2,3,4,5,6].map(i=>Number(r['satisfaction_q'+i])).filter(Boolean))).filter(Boolean));
+      const topStatus=Object.entries(countBy(records,'professional_status')).sort((a,b)=>b[1]-a[1])[0]?.[0]||'não informado';
+      box.innerHTML=`<p>A base atual reúne ${records.length} resposta${records.length>1?'s':''} válidas para análise.</p><p>O perfil profissional mais recorrente é <strong>${topStatus}</strong>.</p><p>A satisfação média observada é de <strong>${sat?String(sat.toFixed(1)).replace('.',','):'—'}</strong> em 5 pontos.</p>`;
+    }
+    function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+    function showFormMessage(msg,type){const el=document.getElementById('form-message');el.textContent=msg;el.className=`mt-4 text-sm rounded-xl px-4 py-3 ${type==='error'?'bg-[#fff1f0] text-[#9b3d35]':'bg-[#edf7f1] text-[#226047]'}`}
+
+    document.getElementById('survey-form').addEventListener('submit',async e=>{
+      e.preventDefault();
+      const form=e.currentTarget;
+      const btn=document.getElementById('submit-btn');
+      btn.disabled=true;
+      btn.classList.add('opacity-70');
+      const old=btn.innerHTML;
+      btn.innerHTML='<span>Enviando...</span>';
+
+      try {
+        const fd=new FormData(form);
+        const payload={respondent_name:fd.get('respondent_name')||'',birth_year:Number(fd.get('birth_year'))||null,gender:fd.get('gender')||'',enrollment_year:Number(fd.get('enrollment_year'))||null,graduation_year:Number(fd.get('graduation_year'))||null,university:fd.get('university')||'',professional_status:fd.get('professional_status')||'',salary_range:fd.get('salary_range')||'',has_specialization:fd.get('has_specialization')||'',specialization_area:fd.get('specialization_area')||'',specialization_institution:fd.get('specialization_institution')||'',specialization_helped_job:fd.get('specialization_helped_job')||'',has_masters:fd.get('has_masters')||'',masters_area:fd.get('masters_area')||'',masters_institution:fd.get('masters_institution')||'',masters_helped_job:fd.get('masters_helped_job')||'',has_phd:fd.get('has_phd')||'',phd_area:fd.get('phd_area')||'',phd_institution:fd.get('phd_institution')||'',phd_helped_job:fd.get('phd_helped_job')||'',company_profile:[...document.querySelectorAll('input[name="company_profile"]:checked')].map(i=>i.value).join('; '),created_at:new Date().toISOString()};
+        for(let i=1;i<=7;i++)payload['formation_q'+i]=Number(fd.get('formation_q'+i))||null;
+        for(let i=1;i<=6;i++){payload['market_q'+i]=Number(fd.get('market_q'+i))||null;payload['satisfaction_q'+i]=Number(fd.get('satisfaction_q'+i))||null;}
+
+        if(allRecords.length>=999){
+          showFormMessage('Limite máximo de respostas atingido. Remova alguns registros antes de adicionar novos.','error');
+          return;
+        }
+
+        const result = await Promise.resolve(window.dataSdk.create(payload));
+
+        if (result && result.isOk !== false) {
+          form.reset();
+          currentStep = 0;
+          refreshStep();
+          showToast('Resposta enviada com sucesso!');
+          showFormMessage('Resposta enviada com sucesso.','success');
+          document.getElementById('thanks-modal').classList.remove('hidden');
+          document.getElementById('thanks-modal').classList.add('flex');
+          return;
+        }
+
+        showFormMessage('Não foi possível enviar sua resposta agora. Tente novamente em instantes.','error');
+      } catch(err) {
+        console.error('submit error', err);
+        showFormMessage('Ocorreu um erro ao enviar. Verifique sua conexão e tente novamente.','error');
+      } finally {
+        btn.disabled=false;
+        btn.classList.remove('opacity-70');
+        btn.innerHTML=old;
+      }
+    });
+
+    function exportCSV(){
+      if(!allRecords.length){showToast('Não há dados para exportar.');return;}
+      const keys=Object.keys(allRecords[0]).filter(k=>k!=='__backendId');
+      const rows=[keys.join(';'),...allRecords.map(r=>keys.map(k=>`"${String(r[k]??'').replace(/"/g,'""')}"`).join(';'))];
+      const blob=new Blob(["\uFEFF"+rows.join('\n')],{type:'text/csv;charset=utf-8;'});
+      const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='pesquisa-engenharia-mecanica.csv';a.click();URL.revokeObjectURL(url);showToast('CSV exportado com sucesso.');
+    }
+    function exportPDF(){
+      const { jsPDF }=window.jspdf,doc=new jsPDF();
+      doc.setFont('helvetica','bold');doc.setFontSize(18);doc.text('Perfil do Engenheiro Mecânico',20,20);
+      doc.setFont('helvetica','normal');doc.setFontSize(11);
+      doc.text(`Respostas registradas: ${allRecords.length}`,20,34);
+      doc.text(`Idade média: ${document.getElementById('kpi-age').textContent}`,20,42);
+      doc.text(`Tempo médio de formação: ${document.getElementById('kpi-grad').textContent}`,20,50);
+      doc.text(`Satisfação média: ${document.getElementById('kpi-satisfaction').textContent}`,20,58);
+      doc.text('Conclusões',20,74);
+      doc.text([...document.querySelectorAll('#report-text p')].map(p=>p.textContent),20,84,{maxWidth:170});
+      doc.save('relatorio-engenharia-mecanica.pdf');showToast('PDF exportado com sucesso.');
+    }
+    async function exportPPT(){
+      const pptx=new pptxgen();pptx.layout='LAYOUT_WIDE';pptx.title='Perfil do Engenheiro Mecânico';
+      const slide=pptx.addSlide();slide.background={color:'F7F4EE'};
+      slide.addText('Perfil do Engenheiro Mecânico',{x:0.6,y:0.5,w:8,h:0.5,fontFace:'Georgia',fontSize:24,bold:true,color:'17342F'});
+      slide.addText('Síntese executiva da pesquisa',{x:0.6,y:1,w:5,h:0.3,fontSize:12,color:'66766F'});
+      [['Entrevistados',document.getElementById('kpi-total').textContent],['Idade média',document.getElementById('kpi-age').textContent],['Satisfação',document.getElementById('kpi-satisfaction').textContent],['Empregabilidade',document.getElementById('kpi-employability').textContent]].forEach((s,i)=>{const x=.6+(i%2)*3,y=1.7+Math.floor(i/2)*1.2;slide.addShape(pptx.ShapeType.roundRect,{x,y,w:2.6,h:.85,rectRadius:.08,fill:{color:'FFFFFF'},line:{color:'DCE7DF'}});slide.addText(s[0],{x:x+.18,y:y+.16,w:1.8,h:.16,fontSize:9,color:'66766F',bold:true});slide.addText(s[1],{x:x+.18,y:y+.36,w:1.8,h:.28,fontFace:'Georgia',fontSize:20,color:'17342F',bold:true});});
+      slide.addText('Conclusões',{x:6.8,y:1.7,w:2,h:.3,fontSize:15,bold:true,color:'17342F'});
+      slide.addText([...document.querySelectorAll('#report-text p')].map(p=>p.textContent).join('\n\n'),{x:6.8,y:2.1,w:2.8,h:2.4,fontSize:12,color:'35554A',fit:'shrink'});
+      await pptx.writeFile({fileName:'relatorio-engenharia-mecanica.pptx'});showToast('PowerPoint exportado com sucesso.');
+    }
+    document.getElementById('csv-btn').addEventListener('click',exportCSV);
+    document.getElementById('pdf-btn').addEventListener('click',exportPDF);
+    document.getElementById('ppt-btn').addEventListener('click',exportPPT);
+    document.getElementById('delete-all-btn').addEventListener('click',()=>document.getElementById('delete-modal').classList.remove('hidden'));
+    document.getElementById('cancel-delete').addEventListener('click',()=>document.getElementById('delete-modal').classList.add('hidden'));
+    document.getElementById('confirm-delete').addEventListener('click',async()=>{
+      const btn=document.getElementById('confirm-delete');btn.disabled=true;btn.innerHTML='<span>Apagando...</span>';
+      for(const record of [...allRecords]){const res=await window.dataSdk.delete(record);if(!res.isOk){showToast('Não foi possível apagar todos os registros.');btn.disabled=false;btn.innerHTML='<span>Apagar tudo</span>';return;}}
+      document.getElementById('delete-modal').classList.add('hidden');btn.disabled=false;btn.innerHTML='<span>Apagar tudo</span>';showToast('Todos os dados foram apagados.');
+    });
+    document.getElementById('close-thanks').addEventListener('click',()=>{
+      document.getElementById('thanks-modal').classList.add('hidden');
+      document.getElementById('thanks-modal').classList.remove('flex');
+      showToast('Resposta salva na planilha.');
+    });
+    document.getElementById('report-btn').addEventListener('click',()=>{updateReport(filteredRecords);showToast('Relatório atualizado com os dados filtrados.');});
+    initData();refreshStep();
+  </script>
+</body></html>
